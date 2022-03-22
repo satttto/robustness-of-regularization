@@ -101,8 +101,7 @@ class Bottleneck(nn.Module):
         return out
 
 
-class ResNet(nn.Module):
-
+class ResNet18(nn.Module):
     def __init__(self, block, layers, num_classes=10, zero_init_residual=False,
                  groups=1, width_per_group=64, replace_stride_with_dilation=None,
                  norm_layer=None, **kwargs):
@@ -180,7 +179,7 @@ class ResNet(nn.Module):
 
         return nn.Sequential(*layers)
 
-    def _forward_impl(self, x):
+    def forward(self, x):
         # See note [TorchScript super()]
         x = self.conv1(x)
         x = self.bn1(x)
@@ -198,22 +197,5 @@ class ResNet(nn.Module):
 
         return x
 
-    def forward(self, x):
-        return self._forward_impl(x)
-
-
-def _resnet(arch, block, layers, progress, **kwargs):
-    model = ResNet(block, layers, **kwargs)
-    return model
-
-
-def resnet18(progress=True, **kwargs):
-    r"""ResNet-18 model from
-    `"Deep Residual Learning for Image Recognition" <https://arxiv.org/pdf/1512.03385.pdf>`_
-
-    Args:
-        pretrained (bool): If True, returns a model pre-trained on ImageNet
-        progress (bool): If True, displays a progress bar of the download to stderr
-    """
-    return _resnet('resnet18', BasicBlock, [2, 2, 2, 2], progress,
-                   **kwargs)
+def resnet18(**kwargs):
+    return ResNet18(BasicBlock, [2, 2, 2, 2], **kwargs)

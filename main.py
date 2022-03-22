@@ -142,7 +142,7 @@ if __name__ == '__main__':
     parser.add_argument('-p', '--path', default='results',
                     help='Folder to store the result. Specify the folder name after "/content/drive/My Drive/"')
     parser.add_argument('-a', '--architecture', default='mlp',
-                    help='Architecture type. Available options: mlp, mlp-bn, resnet18. Default is mlp')
+                    help='Architecture type. Available options: mlp, mlp-bn, resnet18 and vgg13. Default is mlp')
     parser.add_argument('-d', '--dataset', default='mnist',
                     help='Dataset. Available options: mnist, cifar10')
     parser.add_argument('--batch-size', default=128, type=int,
@@ -192,8 +192,6 @@ if __name__ == '__main__':
                     help='Cutmix alpha. Default is 1')
     parser.add_argument('--cutmix-prob', default=0.5, type=float,
                     help='Cutmix probability. Default is 0.5')
-    parser.add_argument('--label-smoothing', default=0.0, type=float,
-                    help='Label smoothing param')
     # model-based regularization
     parser.add_argument('--drop-block', action='store_true',
                     help='Whether use Drop Block technique')

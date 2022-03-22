@@ -5,6 +5,9 @@ from models.mlp_bn import MLPBN
 from models.resnet18 import resnet18
 from models.resnet18_mixup import resnet18_mixup
 from models.resnet18_dropblock import resnet18_dropblock
+from models.vgg13 import VGG13
+from models.vgg13_mixup import vgg13_mixup
+from models.vgg13_dropblock import vgg13_dropblock
 
 class ModelMaker:
     def __init__(self, architecture, dataset_type, option=None, *args, **kwargs):
@@ -43,6 +46,17 @@ class ModelMaker:
                     self._model = resnet18_dropblock(**kwargs)
             else:
                 raise ValueError('Resnet for the dataset is not supported yet')
+        elif self._architecture == 'vgg13':
+            print('Use VGG13')
+            if self._dataset_type in ['cifar10', 'svhn']:
+                if option == None:
+                    self._model = vgg13() # This is not from torchvision
+                elif option == 'mixup':
+                    self._model = vgg13_mixup(**kwargs)
+                elif option == 'dropblock':
+                    self._model = vgg13_dropblock(**kwargs)
+            else:
+                raise ValueError('VGG for the dataset is not supported yet')
         else:
             raise ValueError('Invalid model')
 
