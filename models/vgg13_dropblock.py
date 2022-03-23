@@ -3,8 +3,8 @@ import torch
 from utils import DropBlock2D, LinearScheduler
 
 class VGG13DropBlock(VGG13):
-    def __init__(self, num_classes=10, init_weights=True, dropout=0.5, drop_prob=0, block_size=5):
-        super().__init__(num_classes, init_weights, dropout)
+    def __init__(self, num_classes=10, init_weights=True, dropout=0.5, drop_prob=0, block_size=5, **kwargs):
+        super().__init__(num_classes, init_weights, dropout, **kwargs)
         self.dropblock = LinearScheduler(
             DropBlock2D(drop_prob=drop_prob, block_size=block_size),
             start_value=0,

@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 
 class VGG13(nn.Module):
-    def __init__(self, num_classes=10, init_weights=True, dropout=0.5):
+    def __init__(self, num_classes=10, init_weights=True, dropout=0.5, **kwargs):
         super(VGG13, self).__init__()
         self.layer1 = self._make_layer(3, 64)
         self.layer2 = self._make_layer(64, 128)
