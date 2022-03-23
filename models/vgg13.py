@@ -3,9 +3,6 @@ from typing import Union, List, Dict, Any, cast
 import torch
 import torch.nn as nn
 
-from .._internally_replaced_utils import load_state_dict_from_url
-from ..utils import _log_api_usage_once
-
 
 __all__ = [
     "VGG",
@@ -37,7 +34,6 @@ class VGG(nn.Module):
         self, features: nn.Module, num_classes: int = 1000, init_weights: bool = True, dropout: float = 0.5
     ) -> None:
         super().__init__()
-        _log_api_usage_once(self)
         self.features = features
         self.avgpool = nn.AdaptiveAvgPool2d((7, 7))
         self.classifier = nn.Sequential(
@@ -99,9 +95,6 @@ def _vgg(arch: str, cfg: str, batch_norm: bool, pretrained: bool, progress: bool
     if pretrained:
         kwargs["init_weights"] = False
     model = VGG(make_layers(cfgs[cfg], batch_norm=batch_norm), **kwargs)
-    if pretrained:
-        state_dict = load_state_dict_from_url(model_urls[arch], progress=progress)
-        model.load_state_dict(state_dict)
     return model
 
 
