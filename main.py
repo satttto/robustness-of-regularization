@@ -70,8 +70,6 @@ def main(base_path, architecture, dataset_type, batch_size, restore_best, \
     # make model based on architecture name
     maker = ModelMaker(architecture, dataset_type, option, **model_params)
     model = maker.model.to(device)
-    
-    print(model)
 
     # parameters for training
     criterion = nn.CrossEntropyLoss(label_smoothing=label_smoothing)
