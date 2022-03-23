@@ -32,7 +32,7 @@ class VGG13(nn.Module):
                     nn.init.normal_(m.weight, 0, 0.01)
                     nn.init.constant_(m.bias, 0)
     
-    def _make_layer(in_channels, dim):
+    def _make_layer(self, in_channels, dim):
         conv2d_1 = nn.Conv2d(in_channels, dim, kernel_size=3, padding=1)
         conv2d_2 = nn.Conv2d(dim, dim, kernel_size=3, padding=1)
         layers = [
