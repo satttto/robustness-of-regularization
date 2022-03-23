@@ -1,4 +1,4 @@
-from vgg13 import VGG13
+from .vgg13 import VGG13
 import torch
 from utils import DropBlock2D, LinearScheduler
 

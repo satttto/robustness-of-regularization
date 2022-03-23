@@ -1,5 +1,5 @@
-from vgg13 import VGG13
-from  utils import mixup_data
+from .vgg13 import VGG13
+from utils import mixup_data
 
 class VGG13Mixup(VGG13):
     def forward(self, x, target=None, mixup=False, mixup_alpha=0.1, layer_mix=None, mixup_hidden=False):
