@@ -5,7 +5,7 @@ from models.mlp_bn import MLPBN
 from models.resnet18 import resnet18
 from models.resnet18_mixup import resnet18_mixup
 from models.resnet18_dropblock import resnet18_dropblock
-from models.vgg13 import VGG13
+from models.vgg13 import vgg13
 from models.vgg13_mixup import vgg13_mixup
 from models.vgg13_dropblock import vgg13_dropblock
 

@@ -2,7 +2,7 @@ import random
 import numpy as np
 import torch
 import torch.nn.functional as F
-from .resnet18 import BasicBlock, Bottleneck, ResNet
+from .resnet18 import BasicBlock, Bottleneck, ResNet18
 from  utils import mixup_data
 
 class ResNetManiMixup(ResNet):

@@ -1,6 +1,6 @@
 from torch import nn
 import torch
-from .resnet18 import BasicBlock, Bottleneck, ResNet
+from .resnet18 import BasicBlock, Bottleneck, ResNet18
 from utils import DropBlock2D, LinearScheduler
 
 class ResNetDropBlock(ResNet):
