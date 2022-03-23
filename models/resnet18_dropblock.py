@@ -3,7 +3,7 @@ import torch
 from .resnet18 import BasicBlock, Bottleneck, ResNet18
 from utils import DropBlock2D, LinearScheduler
 
-class ResNetDropBlock(ResNet):
+class ResNetDropBlock(ResNet18):
     def __init__(self, block, layers, num_classes=10, drop_prob=0., block_size=5, zero_init_residual=False,
                  groups=1, width_per_group=64, replace_stride_with_dilation=None,
                  norm_layer=None, **kwargs):

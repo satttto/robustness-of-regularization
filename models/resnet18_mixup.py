@@ -5,7 +5,7 @@ import torch.nn.functional as F
 from .resnet18 import BasicBlock, Bottleneck, ResNet18
 from  utils import mixup_data
 
-class ResNetManiMixup(ResNet):
+class ResNetManiMixup(ResNet18):
     def forward(self, x, target=None, mixup=False, mixup_alpha=0.1, layer_mix=None, mixup_hidden=False):
         if mixup:
             if layer_mix == None and mixup_hidden == False:
