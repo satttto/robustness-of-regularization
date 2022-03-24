@@ -4,42 +4,43 @@ import torch.nn as nn
 from torch.autograd import Variable
 
 
-cfg = {
-    'VGG11': [64, 'M', 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
-    'VGG13': [64, 64, 'M', 128, 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
-    'VGG16': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512, 'M', 512, 512, 512, 'M'],
-    'VGG19': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512, 512, 512, 'M', 512, 512, 512, 512, 'M'],
-}
 
-
-class VGG(nn.Module):
-    def __init__(self, vgg_name):
+class VGG13(nn.Module):
+    def __init__(self):
         super(VGG, self).__init__()
         self.features = self._make_layers(cfg[vgg_name])
+        self.layer1 = self._make_layer(3, 64)
+        self.layer2 = self._make_layer(64, 128)
+        self.layer3 = self._make_layer(128, 256)
+        self.layer4 = self._make_layer(256, 512)
+        self.layer5 = self._make_layer(512, 512)
+        self.avgpool = nn.AvgPool2d(kernel_size=1, stride=1)
         self.classifier = nn.Linear(512, 10)
 
     def forward(self, x):
-        out = self.features(x)
-        out = out.view(out.size(0), -1)
-        out = self.classifier(out)
-        return out
+        x = self.layer1(x)
+        x = self.layer2(x)
+        x = self.layer3(x)
+        x = self.layer4(x)
+        x = self.layer5(x)
+        x = self.avgpool(x)
+        x = out.view(x.size(0), -1)
+        x = self.classifier(x)
+        return x
 
-    def _make_layers(self, cfg):
+    def _make_layer(self, in_channels, out_channels):
         layers = []
-        in_channels = 3
-        for x in cfg:
-            if x == 'M':
-                layers += [nn.MaxPool2d(kernel_size=2, stride=2)]
-            else:
-                layers += [nn.Conv2d(in_channels, x, kernel_size=3, padding=1),
-                           nn.BatchNorm2d(x),
-                           nn.ReLU(inplace=True)]
-                in_channels = x
-        layers += [nn.AvgPool2d(kernel_size=1, stride=1)]
+        layers += [nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1),
+                       nn.BatchNorm2d(x),
+                       nn.ReLU(inplace=True)]
+        layers += [nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1),
+                       nn.BatchNorm2d(x),
+                       nn.ReLU(inplace=True)]
+        layers += [nn.MaxPool2d(kernel_size=2, stride=2)]
         return nn.Sequential(*layers)
 
 
-def vgg13(pretrained = False, progress = True, **kwargs):
+def vgg13(**kwargs):
     r"""VGG 13-layer model (configuration "B")
     `"Very Deep Convolutional Networks For Large-Scale Image Recognition" <https://arxiv.org/pdf/1409.1556.pdf>`_.
     The required minimum input size of the model is 32x32.
@@ -48,5 +49,5 @@ def vgg13(pretrained = False, progress = True, **kwargs):
         pretrained (bool): If True, returns a model pre-trained on ImageNet
         progress (bool): If True, displays a progress bar of the download to stderr
     """
-    return VGG('VGG11')
+    return VGG13()
 
