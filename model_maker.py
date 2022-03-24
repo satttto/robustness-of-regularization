@@ -52,10 +52,9 @@ class ModelMaker:
                 if option == None:
                     self._model = vgg13() # This is not from torchvision
                 elif option == 'mixup':
-                    print("YeeeeeeY")
-                    self._model = resnet18_mixup(**kwargs)
+                    self._model = vgg13_mixup(**kwargs)
                 elif option == 'dropblock':
-                    self._model = resnet18_dropblock(**kwargs)
+                    self._model = vgg13_dropblock(**kwargs)
 
         else:
             raise ValueError('Invalid model')

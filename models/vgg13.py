@@ -6,7 +6,7 @@ from torch.autograd import Variable
 
 
 class VGG13(nn.Module):
-    def __init__(self):
+    def __init__(self, num_classes=10, **kwargs):
         super(VGG13, self).__init__()
         self.layer1 = self._make_layer(3, 64)
         self.layer2 = self._make_layer(64, 128)
@@ -14,7 +14,7 @@ class VGG13(nn.Module):
         self.layer4 = self._make_layer(256, 512)
         self.layer5 = self._make_layer(512, 512)
         self.avgpool = nn.AvgPool2d(kernel_size=1, stride=1)
-        self.classifier = nn.Linear(512, 10)
+        self.classifier = nn.Linear(512, num_classes)
 
     def forward(self, x):
         x = self.layer1(x)
@@ -23,7 +23,7 @@ class VGG13(nn.Module):
         x = self.layer4(x)
         x = self.layer5(x)
         x = self.avgpool(x)
-        x = x.view(x.size(0), -1)
+        x = torch.flatten(x, 1)
         x = self.classifier(x)
         return x
 

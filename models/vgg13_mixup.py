@@ -1,4 +1,5 @@
 import random
+import torch
 from .vgg13 import VGG13
 from utils import mixup_data
 
@@ -42,10 +43,15 @@ class VGG13Mixup(VGG13):
             return x, y_a, y_b, lam 
 
         else: 
-            x = self.features(x)
+            x = self.layer1(x)
+            x = self.layer2(x)
+            x = self.layer3(x)
+            x = self.layer4(x)
+            x = self.layer5(x)
             x = self.avgpool(x)
             x = torch.flatten(x, 1)
             x = self.classifier(x)
+
             return x
 
 def vgg13_mixup(**kwargs):

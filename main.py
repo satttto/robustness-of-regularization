@@ -66,6 +66,7 @@ def main(base_path, architecture, dataset_type, batch_size, restore_best, \
     elif drop_block:
         model_params['drop_prob'] = drop_prob
         model_params['block_size'] = block_size
+        model_params['nr_steps'] = num_epochs
         option = 'dropblock'
     # make model based on architecture name
     maker = ModelMaker(architecture, dataset_type, option, **model_params)
@@ -151,7 +152,7 @@ if __name__ == '__main__':
                     help='Do you want the model that records the best test accuracy? If so, use this flag')
     # Optimization params
     parser.add_argument('-n', '--epochs', default=110, type=int,
-                    help='The number of epochs, Default is 200')
+                    help='The number of epochs, Default is 110')
     parser.add_argument('--lr', default=0.1, type=float,
                     help='Learning rate. Default is 0.1')
     parser.add_argument('--momentum', default=0.9, type=float,

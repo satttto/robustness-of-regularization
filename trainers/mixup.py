@@ -29,7 +29,7 @@ class MixUpTrainer(Trainer):
             r = np.random.rand()
             if self._param_dict['mixup_alpha'] > 0 and r < self._param_dict['mixup_prob']:
                 # Compute output 
-                predictions, labels_a, labels_b, lam = self._model(images, labels, True, self._param_dict['mixup_alpha'], self._param_dict['layer_mix'])
+                predictions, labels_a, labels_b, lam = self._model(images, labels, True, self._param_dict['mixup_alpha'], self._param_dict['layer_mix'], True)
                 # Compute loss
                 loss = lam * self._param_dict['criterion'](predictions, labels_a) + (1. - lam) * self._param_dict['criterion'](predictions, labels_b)
             else:
