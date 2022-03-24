@@ -7,8 +7,7 @@ from torch.autograd import Variable
 
 class VGG13(nn.Module):
     def __init__(self):
-        super(VGG, self).__init__()
-        self.features = self._make_layers(cfg[vgg_name])
+        super(VGG13, self).__init__()
         self.layer1 = self._make_layer(3, 64)
         self.layer2 = self._make_layer(64, 128)
         self.layer3 = self._make_layer(128, 256)
@@ -24,17 +23,17 @@ class VGG13(nn.Module):
         x = self.layer4(x)
         x = self.layer5(x)
         x = self.avgpool(x)
-        x = out.view(x.size(0), -1)
+        x = x.view(x.size(0), -1)
         x = self.classifier(x)
         return x
 
     def _make_layer(self, in_channels, out_channels):
         layers = []
         layers += [nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1),
-                       nn.BatchNorm2d(x),
+                       nn.BatchNorm2d(out_channels),
                        nn.ReLU(inplace=True)]
         layers += [nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1),
-                       nn.BatchNorm2d(x),
+                       nn.BatchNorm2d(out_channels),
                        nn.ReLU(inplace=True)]
         layers += [nn.MaxPool2d(kernel_size=2, stride=2)]
         return nn.Sequential(*layers)
